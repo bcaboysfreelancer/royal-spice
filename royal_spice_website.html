@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROYAL SPICE | Modern Fine Dining & Luxury Restaurant</title>
+    <meta name="description" content="Royal Spice - Premium fine dining restaurant experience offering authentic taste and unforgettable moments.">
+    
+    <!-- Google Fonts: Playfair Display (Serif for titles) & Inter (Clean UI Font) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#d4af37',
+                        goldlight: '#f3e5ab',
+                        darkblack: '#0a0a0a',
+                        darkgray: '#141414',
+                        darkcharcoal: '#1c1c1c',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 20s linear infinite',
+                        'float': 'float 5s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.15' },
+                            '50%': { opacity: '0.3' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Fine Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f3e5ab;
+        }
+
+        /* Deluxe Glass Cards */
+        .gold-glass {
+            background: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.6);
+        }
+        .gold-glass:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 10px 30px 0 rgba(212, 175, 55, 0.08);
+        }
+
+        /* Gold Gradient Text */
+        .text-gold-gradient {
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa7c11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* SPA Router States */
+        .page-transition {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .page-hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+            height: 0;
+            overflow: hidden;
+        }
+        .page-active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            position: relative;
+            height: auto;
+        }
+
+        /* Golden Glow Radial Backgrounds */
+        .bg-glow {
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+        }
+    </style>
+</head>
+<body class="bg-darkblack text-white font-sans overflow-x-hidden min-h-screen flex flex-col">
+
+    <!-- Sticky Glass Header / Navbar -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b border-gold/10" id="main-header" style="background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(15px);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-24">
+                <!-- Brand Logo & Slogan -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
+                    <div class="w-12 h-12 rounded-full border border-gold/30 flex items-center justify-center bg-darkgray/80 shadow-lg relative group">
+                        <div class="absolute inset-0 rounded-full bg-gold/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <i class="fa-solid fa-utensils text-gold text-xl group-hover:rotate-12 transition-transform"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-widest font-serif text-gold-gradient block">ROYAL SPICE</span>
+                        <span class="text-[9px] tracking-[0.3em] text-gray-400 uppercase block -mt-1">Fine Dining Artistry</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu Router -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-4">
+                    <button onclick="navigateTo('home')" class="nav-btn px-4 py-2 text-xs font-semibold tracking-widest uppercase transition-all text-gold border-b-2 border-gold" data-page="home">Home</button>
+                    <button onclick="navigateTo('about')" class="nav-btn px-4 py-2 text-xs font-semibold tracking-widest uppercase transition-all text-gray-300 hover:text-gold border-b-2 border-transparent hover:border-gold/30" data-page="about">About</button>
+                    <button onclick="navigateTo('menu')" class="nav-btn px-4 py-2 text-xs font-semibold tracking-widest uppercase transition-all text-gray-300 hover:text-gold border-b-2 border-transparent hover:border-gold/30" data-page="menu">Our Menu</button>
+                    <button onclick="navigateTo('gallery')" class="nav-btn px-4 py-2 text-xs font-semibold tracking-widest uppercase transition-all text-gray-300 hover:text-gold border-b-2 border-transparent hover:border-gold/30" data-page="gallery">Gallery</button>
+                    <button onclick="navigateTo('reservation')" class="nav-btn px-4 py-2 text-xs font-semibold tracking-widest uppercase transition-all text-gray-300 hover:text-gold border-b-2 border-transparent hover:border-gold/30" data-page="reservation">Reservations</button>
+                    <button onclick="navigateTo('contact')" class="nav-btn px-4 py-2 text-xs font-semibold tracking-widest uppercase transition-all text-gray-300 hover:text-gold border-b-2 border-transparent hover:border-gold/30" data-page="contact">Contact</button>
+                </nav>
+
+                <!-- Reserve CTA Desktop Button -->
+                <div class="hidden lg:flex items-center">
+                    <button onclick="navigateTo('reservation')" class="relative px-6 py-3 overflow-hidden rounded-md border border-gold text-xs font-bold tracking-widest uppercase text-gold group hover:text-black transition-colors duration-300">
+                        <span class="absolute inset-0 w-full h-full bg-gold transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out z-0"></span>
+                        <span class="relative z-10"><i class="fa-regular fa-calendar-check mr-2"></i>Book A Table</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="hamburger-btn" class="text-gold p-2.5 rounded-md bg-darkgray border border-gold/20 focus:outline-none">
+                        <i class="fa-solid fa-bars text-lg" id="hamburger-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dynamic Drawer Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-darkblack/95 backdrop-blur-xl border-t border-gold/10 absolute w-full left-0 p-6 flex flex-col space-y-4 shadow-2xl">
+            <button onclick="navigateTo('home'); toggleMenu()" class="mobile-nav-btn text-left py-3 px-4 rounded-lg text-sm font-semibold tracking-wider text-gold bg-gold/5 border border-gold/20" data-page="home">Home</button>
+            <button onclick="navigateTo('about'); toggleMenu()" class="mobile-nav-btn text-left py-3 px-4 rounded-lg text-sm font-semibold tracking-wider text-gray-300" data-page="about">About Us</button>
+            <button onclick="navigateTo('menu'); toggleMenu()" class="mobile-nav-btn text-left py-3 px-4 rounded-lg text-sm font-semibold tracking-wider text-gray-300" data-page="menu">Deluxe Menu</button>
+            <button onclick="navigateTo('gallery'); toggleMenu()" class="mobile-nav-btn text-left py-3 px-4 rounded-lg text-sm font-semibold tracking-wider text-gray-300" data-page="gallery">Restaurant Gallery</button>
+            <button onclick="navigateTo('reservation'); toggleMenu()" class="mobile-nav-btn text-left py-3 px-4 rounded-lg text-sm font-semibold tracking-wider text-gray-300" data-page="reservation">Make Reservation</button>
+            <button onclick="navigateTo('contact'); toggleMenu()" class="mobile-nav-btn text-left py-3 px-4 rounded-lg text-sm font-semibold tracking-wider text-gray-300" data-page="contact">Contact Details</button>
+            <button onclick="navigateTo('reservation'); toggleMenu()" class="w-full text-center py-3.5 rounded-lg bg-gold text-black font-extrabold text-xs uppercase tracking-widest shadow-lg">
+                Book A Table Now
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Root Wrapper -->
+    <main class="flex-grow pt-24">
+
+        <!-- ============================================= -->
+        <!-- SECTION 1: HOME PAGE                          -->
+        <!-- ============================================= -->
+        <div id="page-home" class="page-transition page-active">
+            
+            <!-- Hero Banner Section -->
+            <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-12 md:py-20 bg-glow">
+                <!-- Golden Light Spots -->
+                <div class="absolute top-1/4 left-1/10 w-96 h-96 bg-gold/5 rounded-full blur-[150px] animate-pulse-glow"></div>
+                <div class="absolute bottom-1/4 right-1/10 w-96 h-96 bg-gold/5 rounded-full blur-[150px] animate-pulse-glow"></div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        
+                        <!-- Hero Content Details (Left) -->
+                        <div class="lg:col-span-6 space-y-8 text-center lg:text-left">
+                            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/30 bg-gold/5 text-gold text-xs font-bold uppercase tracking-widest">
+                                <i class="fa-solid fa-star text-[10px] animate-spin-slow"></i> Micheline Star Chef Curation
+                            </div>
+                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-serif leading-tight text-white">
+                                Experience Fine <br class="hidden sm:block">Dining Like <br>
+                                <span class="text-gold-gradient italic">Never Before</span>
+                            </h1>
+                            <p class="text-gray-300 text-sm sm:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
+                                Delicious food, premium ambiance, and unforgettable moments curated by culinary experts. Every single dish is crafted to trigger a perfect sensory symphony.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                                <button onclick="navigateTo('reservation')" class="px-8 py-4 rounded-md bg-gradient-to-r from-goldlight via-gold to-gold/90 text-black font-extrabold tracking-widest uppercase hover:scale-[1.03] transition-all duration-300 shadow-xl shadow-gold/10">
+                                    Book a Table <i class="fa-solid fa-chair ml-2"></i>
+                                </button>
+                                <button onclick="navigateTo('menu')" class="px-8 py-4 rounded-md border border-gold/40 text-gold hover:bg-gold/5 font-extrabold tracking-widest uppercase transition-all duration-300">
+                                    View Deluxe Menu <i class="fa-solid fa-utensils ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Hero Elegant Spinning Food Image (Right) -->
+                        <div class="lg:col-span-6 flex justify-center relative">
+                            <!-- Background gold ring glow -->
+                            <div class="absolute inset-0 m-auto w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] rounded-full border border-gold/15 animate-spin-slow pointer-events-none"></div>
+                            <div class="absolute inset-0 m-auto w-[320px] h-[320px] sm:w-[420px] sm:h-[420px] rounded-full border-dashed border-gold/10 animate-spin-slow pointer-events-none" style="animation-direction: reverse;"></div>
+                            
+                            <div class="relative w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] animate-float">
+                                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800" 
+                                     alt="Signature Dish Platter" 
+                                     class="w-full h-full object-cover rounded-full border-4 border-gold shadow-2xl relative z-10"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/400x400/141414/d4af37?text=Royal+Spice+Premium';">
+                                <div class="absolute -bottom-4 -left-4 bg-darkgray border border-gold/40 p-4 rounded-xl shadow-2xl z-20 hidden sm:flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-gold/15 flex items-center justify-center text-gold"><i class="fa-solid fa-award text-lg"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-xs">Signature Steak</h4>
+                                        <p class="text-[10px] text-gray-400">Awarded #1 Platter 2026</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Dishes Section -->
+            <section class="py-20 bg-darkgray/40 border-t border-b border-gold/10 relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                        <span class="text-xs font-bold text-gold uppercase tracking-widest block"><i class="fa-solid fa-wine-glass-alt mr-2"></i>Our Signature Menu Highlights</span>
+                        <h2 class="text-3xl sm:text-4xl font-bold font-serif">Featured Culinary Masterpieces</h2>
+                        <div class="w-24 h-[1px] bg-gold mx-auto relative mt-2">
+                            <div class="absolute -top-[3px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-darkblack border border-gold rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <!-- 3 Featured Deluxe Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Platter 1 -->
+                        <div class="gold-glass rounded-2xl overflow-hidden group transition-all duration-300">
+                            <div class="h-60 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=600" 
+                                     alt="Prime Beef Filet" 
+                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <div class="absolute top-4 right-4 bg-darkblack/85 border border-gold/40 text-gold text-xs font-bold px-3 py-1.5 rounded-md">$48.00</div>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <h3 class="text-xl font-bold font-serif group-hover:text-gold transition-colors">Prime Black Angus Filet</h3>
+                                <p class="text-gray-400 text-xs leading-relaxed">Tender pan-seared Angus beef medallion served with white truffle potato mash and rich rosemary glaze.</p>
+                                <button onclick="navigateTo('menu')" class="text-xs font-bold text-gold flex items-center gap-2 group-hover:translate-x-2 transition-transform">
+                                    Explore Ingredients <i class="fa-solid fa-arrow-right-long text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Platter 2 -->
+                        <div class="gold-glass rounded-2xl overflow-hidden group transition-all duration-300">
+                            <div class="h-60 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=600" 
+                                     alt="Royal Biryani" 
+                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <div class="absolute top-4 right-4 bg-darkblack/85 border border-gold/40 text-gold text-xs font-bold px-3 py-1.5 rounded-md">$36.00</div>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <h3 class="text-xl font-bold font-serif group-hover:text-gold transition-colors">Royal Gold Dust Biryani</h3>
+                                <p class="text-gray-400 text-xs leading-relaxed">Fragrant long-grain basmati rice cooked on slow flame with saffron, organic herbs, and dynamic gold-leaf-crusted lamb.</p>
+                                <button onclick="navigateTo('menu')" class="text-xs font-bold text-gold flex items-center gap-2 group-hover:translate-x-2 transition-transform">
+                                    Explore Ingredients <i class="fa-solid fa-arrow-right-long text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Platter 3 -->
+                        <div class="gold-glass rounded-2xl overflow-hidden group transition-all duration-300">
+                            <div class="h-60 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=600" 
+                                     alt="Salmon Avocado Salad" 
+                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <div class="absolute top-4 right-4 bg-darkblack/85 border border-gold/40 text-gold text-xs font-bold px-3 py-1.5 rounded-md">$29.00</div>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <h3 class="text-xl font-bold font-serif group-hover:text-gold transition-colors">Smoked Salmon & Caviar Platter</h3>
+                                <p class="text-gray-400 text-xs leading-relaxed">Delicately smoked Atlantic salmon garnished with premium sturgeon black caviar, fresh dill cream, and crispy bread crisps.</p>
+                                <button onclick="navigateTo('menu')" class="text-xs font-bold text-gold flex items-center gap-2 group-hover:translate-x-2 transition-transform">
+                                    Explore Ingredients <i class="fa-solid fa-arrow-right-long text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chef Special Section -->
+            <section class="py-20 relative bg-darkblack">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&q=80&w=600" 
+                                 alt="Executive Chef" 
+                                 class="rounded-2xl border border-gold/20 shadow-2xl w-full object-cover h-[450px]">
+                            <div class="absolute bottom-6 right-6 gold-glass p-6 rounded-xl border border-gold/30 hidden sm:block">
+                                <p class="text-gold font-serif text-lg font-bold">Chef Marco Pierre</p>
+                                <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-0.5">3 Michelin Stars Recipient</p>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <span class="text-xs font-bold text-gold uppercase tracking-widest block">Culinary philosophy</span>
+                            <h2 class="text-3xl sm:text-4xl font-bold font-serif text-white">The Chef's Special Artistry</h2>
+                            <p class="text-gray-300 text-sm leading-relaxed font-light">
+                                "At Royal Spice, we believe that dining is not just about nutrition; it is an intimate experience that bridges diverse senses. We source the absolute finest ingredients from global organic markets to compose culinary art."
+                            </p>
+                            <div class="space-y-4 border-l-2 border-gold/40 pl-6 my-6">
+                                <h4 class="font-serif text-lg text-gold font-semibold">Tonight's Dynamic Curation</h4>
+                                <p class="text-gray-400 text-xs leading-relaxed">
+                                    Indulge in our exquisite <strong class="text-white">Gold-Leaf Ribeye steak</strong>, aged gracefully for 45 days, seared over authentic hickory charcoal, and complemented with direct truffle wine sauce reduction.
+                                </p>
+                            </div>
+                            <button onclick="navigateTo('reservation')" class="px-6 py-3 rounded-md bg-gold text-black font-extrabold text-xs tracking-widest uppercase hover:scale-[1.02] transition-transform">
+                                Book Chef's Table Call
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Customer Reviews Section -->
+            <section class="py-20 border-t border-gold/10 bg-darkgray/30 relative overflow-hidden">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                    <span class="text-xs font-bold text-gold uppercase tracking-widest block mb-4">GUEST OPINIONS</span>
+                    <h2 class="text-3xl font-serif mb-12">Whispers of Satisfaction</h2>
+                    
+                    <!-- Dynamic Animated Slider Container -->
+                    <div class="gold-glass rounded-3xl p-8 sm:p-12 relative min-h-[250px] flex flex-col justify-between">
+                        <!-- Quotes Icon background ornament -->
+                        <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gold flex items-center justify-center text-black text-xl shadow-lg"><i class="fa-solid fa-quote-right"></i></div>
+                        
+                        <div class="space-y-6">
+                            <p id="slider-quote" class="text-gray-200 text-sm sm:text-base italic leading-relaxed font-light">
+                                "The Gold Dust Biryani at Royal Spice is an culinary revolution. The ambiance transported us directly to classic Royal Bengal courts. Absolutely exceptional service!"
+                            </p>
+                            <div class="flex items-center justify-center gap-1 text-gold text-xs">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <div class="border-t border-gold/10 pt-4 max-w-[200px] mx-auto">
+                                <h4 id="slider-author" class="font-bold text-sm text-white">Alexander Sterling</h4>
+                                <p id="slider-role" class="text-[10px] text-gold uppercase tracking-wider mt-0.5">Epicurean Critic</p>
+                            </div>
+                        </div>
+
+                        <!-- Manual Navigation Arrows -->
+                        <div class="flex justify-between items-center absolute w-full left-0 px-4 sm:px-6 top-1/2 -translate-y-1/2">
+                            <button onclick="slideReviews(-1)" class="w-10 h-10 rounded-full bg-darkblack border border-gold/20 hover:border-gold text-gold flex items-center justify-center transition-all"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+                            <button onclick="slideReviews(1)" class="w-10 h-10 rounded-full bg-darkblack border border-gold/20 hover:border-gold text-gold flex items-center justify-center transition-all"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reservation CTA Banner -->
+            <section class="py-24 border-t border-gold/10 relative overflow-hidden bg-glow">
+                <div class="max-w-4xl mx-auto px-4 text-center space-y-8 relative z-10">
+                    <h2 class="text-3xl sm:text-5xl font-bold font-serif leading-tight">Secure Your Culinary Sanctuary Today</h2>
+                    <p class="text-gray-300 text-sm sm:text-base max-w-xl mx-auto font-light leading-relaxed">
+                        Due to high demand and strict quality focus, we accept limited tables per evening. Confirm your bookings in advance.
+                    </p>
+                    <div>
+                        <button onclick="navigateTo('reservation')" class="px-8 py-4 rounded-md bg-gold text-black font-extrabold tracking-widest uppercase hover:scale-105 active:scale-95 transition-all shadow-xl shadow-gold/20">
+                            Book Table Now <i class="fa-solid fa-calendar-check ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- SECTION 2: ABOUT PAGE                         -->
+        <!-- ============================================= -->
+        <div id="page-about" class="page-transition page-hidden">
+            <!-- Header section banner -->
+            <section class="py-16 text-center relative bg-glow border-b border-gold/10">
+                <div class="max-w-7xl mx-auto px-4 relative z-10 space-y-4">
+                    <span class="text-xs font-bold text-gold uppercase tracking-widest block"><i class="fa-solid fa-crown mr-2"></i>THE CHRONICLES OF TASTE</span>
+                    <h1 class="text-4xl sm:text-5xl font-bold font-serif">Our Elegant Legacy</h1>
+                    <div class="w-24 h-[1px] bg-gold mx-auto relative mt-2">
+                        <div class="absolute -top-[3px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-darkblack border border-gold rotate-45"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Story Segment -->
+            <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <h2 class="text-3xl font-serif text-white">How Royal Spice Rewrote Luxury Fine Dining</h2>
+                        <p class="text-gray-300 text-sm leading-relaxed font-light">
+                            Born out of a deep reverence for heritage spices and authentic open-charcoal fire cooking, Royal Spice was established in San Francisco to serve as a high sanctuary for discerning diners.
+                        </p>
+                        <p class="text-gray-300 text-sm leading-relaxed font-light">
+                            We don't focus on high speed turnovers. Each seating gets ample time to explore the textures, wine recommendations, and detailed culinary history explained directly by our serving curators.
+                        </p>
+                    </div>
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=600" 
+                             alt="Luxury Interior Table" 
+                             class="rounded-2xl border border-gold/20 w-full object-cover shadow-2xl h-[350px]">
+                    </div>
+                </div>
+
+                <!-- Mission & Vision Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="gold-glass p-8 rounded-2xl space-y-4">
+                        <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold text-lg"><i class="fa-solid fa-gem"></i></div>
+                        <h3 class="text-xl font-bold font-serif">Artisanal Dining Mission</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed font-light">
+                            To create a highly premium, slow-paced dining ecosystem where raw local organic produce is transformed into beautiful culinary compositions using timeless heritage recipes.
+                        </p>
+                    </div>
+                    <div class="gold-glass p-8 rounded-2xl space-y-4">
+                        <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold text-lg"><i class="fa-solid fa-leaf"></i></div>
+                        <h3 class="text-xl font-bold font-serif">Quality Ingredient Manifesto</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed font-light">
+                            Zero micro-plastics, zero synthetic enhancers. We hand-source organic basmati from dedicated fields, saffron from local artisan harvesters, and choice meats raised on cruelty-free meadows.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- SECTION 3: MENU PAGE                          -->
+        <!-- ============================================= -->
+        <div id="page-menu" class="page-transition page-hidden">
+            <!-- Header Section -->
+            <section class="py-16 text-center relative bg-glow border-b border-gold/10">
+                <div class="max-w-7xl mx-auto px-4 relative z-10 space-y-4">
+                    <span class="text-xs font-bold text-gold uppercase tracking-widest block"><i class="fa-solid fa-book-open mr-2"></i>Gastronomic anthology</span>
+                    <h1 class="text-4xl sm:text-5xl font-bold font-serif">The Deluxe Menu</h1>
+                    <div class="w-24 h-[1px] bg-gold mx-auto relative mt-2">
+                        <div class="absolute -top-[3px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-darkblack border border-gold rotate-45"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Category Filter Buttons -->
+            <section class="py-6 border-b border-gold/10">
+                <div class="max-w-7xl mx-auto px-4 flex flex-wrap gap-3 justify-center">
+                    <button onclick="filterMenu('all')" class="menu-filter-btn px-6 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-all bg-gold text-black border border-gold" id="m-btn-all">All Plates</button>
+                    <button onclick="filterMenu('starters')" class="menu-filter-btn px-6 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-all border border-gold/20 text-gray-400 hover:text-gold" id="m-btn-starters">Starters</button>
+                    <button onclick="filterMenu('main')" class="menu-filter-btn px-6 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-all border border-gold/20 text-gray-400 hover:text-gold" id="m-btn-main">Main Course</button>
+                    <button onclick="filterMenu('biryani')" class="menu-filter-btn px-6 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-all border border-gold/20 text-gray-400 hover:text-gold" id="m-btn-biryani">Biryani Specials</button>
+                    <button onclick="filterMenu('desserts')" class="menu-filter-btn px-6 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-all border border-gold/20 text-gray-400 hover:text-gold" id="m-btn-desserts">Desserts</button>
+                    <button onclick="filterMenu('beverages')" class="menu-filter-btn px-6 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-all border border-gold/20 text-gray-400 hover:text-gold" id="m-btn-beverages">Beverages</button>
+                </div>
+            </section>
+
+            <!-- Menu Grid List -->
+            <section class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="menu-items-grid">
+                    
+                    <!-- STARTER 1 -->
+                    <div class="menu-card-item gold-glass rounded-2xl overflow-hidden group transition-all duration-300" data-category="starters">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=500" alt="Platter Starter" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex justify-between items-center gap-2">
+                                <h4 class="font-serif font-bold text-lg text-white group-hover:text-gold transition-colors">Truffle Smoked Bruschetta</h4>
+                                <span class="text-gold font-bold text-sm">$18.00</span>
+                            </div>
+                            <p class="text-gray-400 text-xs leading-relaxed font-light">Crispy farm loaf slices topped with organic vine tomatoes, dynamic black truffle paste, and micro-herbs.</p>
+                        </div>
+                    </div>
+
+                    <!-- STARTER 2 -->
+                    <div class="menu-card-item gold-glass rounded-2xl overflow-hidden group transition-all duration-300" data-category="starters">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=500" alt="Crispy Calamari" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex justify-between items-center gap-2">
+                                <h4 class="font-serif font-bold text-lg text-white group-hover:text-gold transition-colors">Hickory Crispy Calamari</h4>
+                                <span class="text-gold font-bold text-sm">$22.00</span>
+                            </div>
+                            <p class="text-gray-400 text-xs leading-relaxed font-light">Delicately spiced crispy calamari loops served with home-made saffron and lemon garlic aioli.</p>
+                        </div>
+                    </div>
+
+                    <!-- MAIN 1 -->
+                    <div class="menu-card-item gold-glass rounded-2xl overflow-hidden group transition-all duration-300" data-category="main">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=500" alt="Ribeye Steak" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex justify-between items-center gap-2">
+                                <h4 class="font-serif font-bold text-lg text-white group-hover:text-gold transition-colors">Classic Premium Ribeye Steak</h4>
+                                <span class="text-gold font-bold text-sm">$52.00</span>
+                            </div>
+                            <p class="text-gray-400 text-xs leading-relaxed font-light">Seared with organic sage and rosemary butter, served with asparagus spears and sweet potato purees.</p>
+                        </div>
+                    </div>
+
+                    <!-- MAIN 2 -->
+                    <div class="menu-card-item gold-glass rounded-2xl overflow-hidden group transition-all duration-300" data-category="main">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=500" alt="Salmon Filet" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex justify-between items-center gap-2">
+                                <h4 class="font-serif font-bold text-lg text-white group-hover:text-gold transition-colors">Pan-Seared Atlantic Salmon</h4>
+                                <span class="text-gold font-bold text-sm">$44.00</span>
+                            </div>
+                            <p class="text-gray-400 text-xs leading-relaxed font-light">Crisp-skin salmon medallion served over local wild-rice and dressed with champagne reduction sauce.</p>
+                        </div>
+                    </div>
+
+                    <!-- BIRYANI 1 -->
+                    <div class="menu-card-item gold-glass rounded-2xl overflow-hidden group transition-all duration-300" data-category="biryani">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=500" alt="Kolkata Special Biryani" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex justify-between items-center gap-2">
+                                <h4 class="font-serif font-bold text-lg text-white group-hover:text-gold transition-colors">Nawab-Style Shahi Biryani</h4>
+                                <span class="text-gold font-bold text-sm">$38.00</span>
+                            </div>
+                            <p class="text-gray-400 text-xs leading-relaxed font-light">Heritage recipe containing gold leaf dust, choice slow-cooked goat rib pieces, saffron, and tender soft potato.</p>
+                        </div>
+                    </div>
+
+                    <!-- BIRYANI 2 -->
+                    <div class="menu-card-item gold-glass rounded-2xl overflow-hidden group transition-all duration-300" data-category="biryani">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=500" alt="Murgh Awadhi Biryani" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex justify-between items-center gap-2">
+                                <h4 class="font-serif font-bold text-lg text-white group-hover:text-gold transition-colors">Royal Awadhi Murgh Biryani</h4>
+                                <span class="text-gold font-bold text-sm">$34.00</span>
+                            </div>
+                            <p class="text-gray-400 text-xs leading-relaxed font-light">Succulent free-range chicken cooked inside sealed clay pots with basmati rice, mace, and royal cardamom.</p>
+                        </div>
+                    </div>
+
+                    <!-- DESSERT 1 -->
+                    <div class="menu-card-item gold-glass rounded-2xl overflow-hidden group transition-all duration-300" data-category="desserts">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&q=80&w=500" alt="Lava Cake" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex justify-between items-center gap-2">
+                                <h4 class="font-serif font-bold text-lg text-white group-hover:text-gold transition-colors">Belgian Chocolate Lava Cake</h4>
+                                <span class="text-gold font-bold text-sm">$16.00</span>
+                            </div>
+                            <p class="text-gray-400 text-xs leading-relaxed font-light">Decadent rich warm dark-chocolate lava center served with premium Madagascan vanilla pod gelato ice cream.</p>
+                        </div>
+                    </div>
+
+                    <!-- DESSERT 2 -->
+                    <div class="menu-card-item gold-glass rounded-2xl overflow-hidden group transition-all duration-300" data-category="desserts">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&q=80&w=500" alt="Saffron Kulfi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex justify-between items-center gap-2">
+                                <h4 class="font-serif font-bold text-lg text-white group-hover:text-gold transition-colors">Gold-Crusted Saffron Kulfi</h4>
+                                <span class="text-gold font-bold text-sm">$15.00</span>
+                            </div>
+                            <p class="text-gray-400 text-xs leading-relaxed font-light">Traditional slow-churned condensed milk ice-cream flavored deeply with Iranian saffron, green cardamom, and pistachios.</p>
+                        </div>
+                    </div>
+
+                    <!-- BEVERAGE 1 -->
+                    <div class="menu-card-item gold-glass rounded-2xl overflow-hidden group transition-all duration-300" data-category="beverages">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=500" alt="Royal Elixir Mocktail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <div class="flex justify-between items-center gap-2">
+                                <h4 class="font-serif font-bold text-lg text-white group-hover:text-gold transition-colors">Royal Spice Gold Elixir</h4>
+                                <span class="text-gold font-bold text-sm">$12.00</span>
+                            </div>
+                            <p class="text-gray-400 text-xs leading-relaxed font-light">Refreshing fusion mocktail of organic pineapple extract, rosemary infusion, lime, and edible sparkling gold dust.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- SECTION 4: GALLERY PAGE                       -->
+        <!-- ============================================= -->
+        <div id="page-gallery" class="page-transition page-hidden">
+            <!-- Header Section -->
+            <section class="py-16 text-center relative bg-glow border-b border-gold/10">
+                <div class="max-w-7xl mx-auto px-4 relative z-10 space-y-4">
+                    <span class="text-xs font-bold text-gold uppercase tracking-widest block"><i class="fa-regular fa-image mr-2"></i>Visual luxury catalog</span>
+                    <h1 class="text-4xl sm:text-5xl font-bold font-serif">Restaurant Gallery</h1>
+                    <div class="w-24 h-[1px] bg-gold mx-auto relative mt-2">
+                        <div class="absolute -top-[3px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-darkblack border border-gold rotate-45"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gallery Grid Gallery Section -->
+            <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Custom responsive grid resembling a fine masonry style -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <div class="relative overflow-hidden rounded-2xl group border border-gold/10 aspect-square">
+                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=500" alt="Steak presentation" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkblack via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                            <span class="font-serif font-bold text-lg text-gold">Chef's Steak Art</span>
+                        </div>
+                    </div>
+
+                    <div class="relative overflow-hidden rounded-2xl group border border-gold/10 aspect-[4/5] sm:row-span-2">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=500" alt="Restaurant Interior" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkblack via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                            <span class="font-serif font-bold text-lg text-gold">Premium Dinning Hall</span>
+                        </div>
+                    </div>
+
+                    <div class="relative overflow-hidden rounded-2xl group border border-gold/10 aspect-square">
+                        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&q=80&w=500" alt="Dessert Presentation" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkblack via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                            <span class="font-serif font-bold text-lg text-gold">Delightful Belgian Desserts</span>
+                        </div>
+                    </div>
+
+                    <div class="relative overflow-hidden rounded-2xl group border border-gold/10 aspect-[4/3]">
+                        <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&q=80&w=500" alt="Chef Team" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkblack via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                            <span class="font-serif font-bold text-lg text-gold">Our Master Strategy Chefs</span>
+                        </div>
+                    </div>
+
+                    <div class="relative overflow-hidden rounded-2xl group border border-gold/10 aspect-square">
+                        <img src="https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&q=80&w=500" alt="Premium Biryani" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkblack via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                            <span class="font-serif font-bold text-lg text-gold">Rich Saffron Biryani Preparation</span>
+                        </div>
+                    </div>
+
+                    <div class="relative overflow-hidden rounded-2xl group border border-gold/10 aspect-video sm:col-span-2">
+                        <img src="https://images.unsplash.com/photo-1506368249639-73a05d6f6488?auto=format&fit=crop&q=80&w=800" alt="Organic Herbs Cooking" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkblack via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                            <span class="font-serif font-bold text-lg text-gold">Hand-selected Organic Spices</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- SECTION 5: RESERVATION PAGE                   -->
+        <!-- ============================================= -->
+        <div id="page-reservation" class="page-transition page-hidden">
+            <!-- Header Section -->
+            <section class="py-16 text-center relative bg-glow border-b border-gold/10">
+                <div class="max-w-7xl mx-auto px-4 relative z-10 space-y-4">
+                    <span class="text-xs font-bold text-gold uppercase tracking-widest block"><i class="fa-regular fa-calendar-check mr-2"></i>RESERVE YOUR EXPERIENCES</span>
+                    <h1 class="text-4xl sm:text-5xl font-bold font-serif">Table Reservation</h1>
+                    <div class="w-24 h-[1px] bg-gold mx-auto relative mt-2">
+                        <div class="absolute -top-[3px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-darkblack border border-gold rotate-45"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Form Validation Elements and Inputs -->
+            <section class="py-12 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="gold-glass rounded-3xl p-8 sm:p-12 border border-gold/20 relative shadow-2xl">
+                    <h3 class="text-2xl font-serif text-center text-gold mb-8">Book A Premium Dining Seat</h3>
+                    
+                    <form id="reservation-form" onsubmit="submitReservation(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="r-name" class="text-[10px] font-bold text-gold uppercase tracking-widest block">Your Name</label>
+                                <div class="relative">
+                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gold/60 text-xs"><i class="fa-solid fa-user"></i></span>
+                                    <input type="text" id="r-name" required placeholder="John Sterling" class="w-full bg-darkblack border border-gold/20 focus:border-gold rounded-md pl-10 pr-4 py-3.5 text-xs text-white placeholder-gray-600 outline-none transition-colors">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="r-phone" class="text-[10px] font-bold text-gold uppercase tracking-widest block">Contact Phone</label>
+                                <div class="relative">
+                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gold/60 text-xs"><i class="fa-solid fa-phone"></i></span>
+                                    <input type="tel" id="r-phone" required placeholder="+1 (555) 000-0000" class="w-full bg-darkblack border border-gold/20 focus:border-gold rounded-md pl-10 pr-4 py-3.5 text-xs text-white placeholder-gray-600 outline-none transition-colors">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                            <div class="space-y-2">
+                                <label for="r-date" class="text-[10px] font-bold text-gold uppercase tracking-widest block">Preferred Date</label>
+                                <div class="relative">
+                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gold/60 text-xs"><i class="fa-solid fa-calendar-days"></i></span>
+                                    <input type="date" id="r-date" required class="w-full bg-darkblack border border-gold/20 focus:border-gold rounded-md pl-10 pr-4 py-3.5 text-xs text-white outline-none transition-colors">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="r-time" class="text-[10px] font-bold text-gold uppercase tracking-widest block">Preferred Time Slot</label>
+                                <div class="relative">
+                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gold/60 text-xs"><i class="fa-solid fa-clock"></i></span>
+                                    <select id="r-time" required class="w-full bg-darkblack border border-gold/20 focus:border-gold rounded-md pl-10 pr-4 py-3.5 text-xs text-white outline-none transition-colors">
+                                        <option value="" disabled selected class="bg-darkblack">Select slot...</option>
+                                        <option value="18:00" class="bg-darkblack">06:00 PM (Sunset Hour)</option>
+                                        <option value="19:30" class="bg-darkblack">07:30 PM (Prime Dining)</option>
+                                        <option value="21:00" class="bg-darkblack">09:00 PM (Late Seating)</option>
+                                        <option value="22:30" class="bg-darkblack">10:30 PM (Midnight Curation)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label for="r-guests" class="text-[10px] font-bold text-gold uppercase tracking-widest block">Number of Guests</label>
+                                <div class="relative">
+                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gold/60 text-xs"><i class="fa-solid fa-users"></i></span>
+                                    <select id="r-guests" required class="w-full bg-darkblack border border-gold/20 focus:border-gold rounded-md pl-10 pr-4 py-3.5 text-xs text-white outline-none transition-colors">
+                                        <option value="1" class="bg-darkblack">1 Guest (Single Explorer)</option>
+                                        <option value="2" selected class="bg-darkblack">2 Guests (Couple Seating)</option>
+                                        <option value="4" class="bg-darkblack">4 Guests (Family Dining)</option>
+                                        <option value="6" class="bg-darkblack">6 Guests (Executive Lounge)</option>
+                                        <option value="10" class="bg-darkblack">10+ Guests (Royal Banquet)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Special Request Optional field -->
+                        <div class="space-y-2">
+                            <label for="r-notes" class="text-[10px] font-bold text-gold uppercase tracking-widest block">Special requests & Dietary notes (Optional)</label>
+                            <textarea id="r-notes" rows="3" placeholder="Tell us about food allergies, seat position preferences, or milestone anniversary celebrations..." class="w-full bg-darkblack border border-gold/20 focus:border-gold rounded-md p-4 text-xs text-white placeholder-gray-600 outline-none transition-colors resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-md bg-gradient-to-r from-goldlight to-gold text-black font-extrabold tracking-widest uppercase hover:opacity-95 shadow-lg shadow-gold/15 active:scale-95 transition-all">
+                            Submit Seating Reservation <i class="fa-solid fa-check ml-1"></i>
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ============================================= -->
+        <!-- SECTION 6: CONTACT PAGE                       -->
+        <!-- ============================================= -->
+        <div id="page-contact" class="page-transition page-hidden">
+            <!-- Header Section -->
+            <section class="py-16 text-center relative bg-glow border-b border-gold/10">
+                <div class="max-w-7xl mx-auto px-4 relative z-10 space-y-4">
+                    <span class="text-xs font-bold text-gold uppercase tracking-widest block"><i class="fa-solid fa-compass mr-2"></i>LOCATION DIRECTIONS & INQUIRIES</span>
+                    <h1 class="text-4xl sm:text-5xl font-bold font-serif">Contact Coordinates</h1>
+                    <div class="w-24 h-[1px] bg-gold mx-auto relative mt-2">
+                        <div class="absolute -top-[3px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-darkblack border border-gold rotate-45"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Details Grid and Techy Map Design Mockup -->
+            <section class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    
+                    <!-- Left: Contact Details Cards -->
+                    <div class="lg:col-span-5 space-y-8">
+                        <div class="gold-glass p-8 rounded-2xl space-y-6">
+                            <h3 class="text-2xl font-serif text-gold font-bold">Reach Out Directly</h3>
+                            <p class="text-gray-300 text-xs leading-relaxed font-light">Our concierge desk remains open 24 hours a day to adjust seat reservations, plan grand weddings, or arrange customizable banquets.</p>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4 border-b border-gold/10 pb-4">
+                                    <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold text-lg"><i class="fa-solid fa-envelope"></i></div>
+                                    <div>
+                                        <p class="text-[9px] text-gray-500 uppercase tracking-widest">Email Address</p>
+                                        <a href="mailto:concierge@royalspice.com" class="text-xs font-bold hover:text-gold transition-colors">concierge@royalspice.com</a>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4 border-b border-gold/10 pb-4">
+                                    <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold text-lg"><i class="fa-solid fa-phone-volume"></i></div>
+                                    <div>
+                                        <p class="text-[9px] text-gray-500 uppercase tracking-widest">Premium Hotline</p>
+                                        <a href="tel:+18005557742" class="text-xs font-bold hover:text-gold transition-colors">+1 (800) 555-SPICE</a>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold text-lg"><i class="fa-solid fa-map-location-dot"></i></div>
+                                    <div>
+                                        <p class="text-[9px] text-gray-500 uppercase tracking-widest">Physical Address</p>
+                                        <p class="text-xs font-bold">128 Fine Dining Lane, Golden Gate District, San Francisco, CA</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Elegant Golden-Themed Google Map Area Placeholder -->
+                        <div class="gold-glass rounded-2xl overflow-hidden h-64 relative border border-gold/20 shadow-2xl flex flex-col justify-end p-6">
+                            <div class="absolute inset-0 bg-darkgray/95 flex items-center justify-center overflow-hidden">
+                                <div class="absolute w-[180%] h-[180%] bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:20px_20px] opacity-15"></div>
+                                <div class="absolute w-32 h-32 bg-gold/5 rounded-full blur-2xl animate-pulse"></div>
+                                <div class="relative flex flex-col items-center">
+                                    <div class="w-12 h-12 bg-gold text-black rounded-full flex items-center justify-center shadow-lg shadow-gold/50 animate-bounce mb-3">
+                                        <i class="fa-solid fa-location-crosshairs text-lg"></i>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gold tracking-widest uppercase">37.7749° N, 122.4194° W</span>
+                                    <span class="text-[9px] text-gray-500 uppercase tracking-wider mt-1">Golden Gate Luxury District</span>
+                                </div>
+                            </div>
+                            <div class="relative z-10 gold-glass p-3 rounded-lg border-gold/10 text-xs flex justify-between items-center bg-darkblack/85">
+                                <span>San Francisco HQ</span>
+                                <a href="https://maps.google.com" target="_blank" class="text-gold font-bold hover:underline">Get Directions</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Glassmorphism Contact Form for general questions -->
+                    <div class="lg:col-span-7">
+                        <div class="gold-glass p-8 sm:p-12 rounded-2xl border border-gold/20 shadow-2xl relative">
+                            <h3 class="text-2xl font-serif text-gold font-bold mb-6">Send A General Inquiry</h3>
+                            
+                            <form id="contact-query-form" onsubmit="submitContactQuery(event)" class="space-y-6">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div class="space-y-2">
+                                        <label for="qc-name" class="text-[10px] font-bold text-gold uppercase tracking-widest block">Full Name</label>
+                                        <input type="text" id="qc-name" required placeholder="Alexander Sterling" class="w-full bg-darkblack border border-gold/20 focus:border-gold rounded-md px-4 py-3.5 text-xs text-white placeholder-gray-600 outline-none transition-colors">
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label for="qc-email" class="text-[10px] font-bold text-gold uppercase tracking-widest block">Email Address</label>
+                                        <input type="email" id="qc-email" required placeholder="alex@sterling.com" class="w-full bg-darkblack border border-gold/20 focus:border-gold rounded-md px-4 py-3.5 text-xs text-white placeholder-gray-600 outline-none transition-colors">
+                                    </div>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label for="qc-subject" class="text-[10px] font-bold text-gold uppercase tracking-widest block">Inquiry Subject</label>
+                                    <select id="qc-subject" required class="w-full bg-darkblack border border-gold/20 focus:border-gold rounded-md px-4 py-3.5 text-xs text-white outline-none transition-colors">
+                                        <option value="" disabled selected class="bg-darkblack">Select Subject...</option>
+                                        <option value="catering" class="bg-darkblack">Offsite Royal Catering Service</option>
+                                        <option value="wedding" class="bg-darkblack">Restaurant Booking Wedding Reception</option>
+                                        <option value="feedback" class="bg-darkblack">Dining Feedback & Reviews</option>
+                                        <option value="careers" class="bg-darkblack">Culinary Team Recruitment</option>
+                                    </select>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label for="qc-msg" class="text-[10px] font-bold text-gold uppercase tracking-widest block">Your Message Details</label>
+                                    <textarea id="qc-msg" rows="5" required placeholder="Describe your request in detail..." class="w-full bg-darkblack border border-gold/20 focus:border-gold rounded-md p-4 text-xs text-white placeholder-gray-600 outline-none transition-colors resize-none"></textarea>
+                                </div>
+
+                                <button type="submit" class="w-full py-4 rounded-md bg-gradient-to-r from-goldlight to-gold text-black font-extrabold tracking-widest uppercase hover:opacity-95 shadow-lg shadow-gold/15 active:scale-95 transition-all">
+                                    Deploy Message Request <i class="fa-solid fa-paper-plane ml-1"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Custom Royal Toast Notification System to completely eliminate alert() -->
+    <div id="royal-toast" class="fixed bottom-6 right-6 z-[100] transform translate-y-20 opacity-0 transition-all duration-300 gold-glass p-4 rounded-xl flex items-center gap-3 border-gold/40 shadow-2xl max-w-sm">
+        <div id="toast-icon" class="w-10 h-10 rounded-full flex items-center justify-center text-lg"></div>
+        <div>
+            <h4 id="toast-title" class="font-serif font-bold text-sm text-gold"></h4>
+            <p id="toast-desc" class="text-[11px] text-gray-300 mt-0.5 leading-relaxed"></p>
+        </div>
+        <button onclick="hideToast()" class="text-gold/60 hover:text-gold text-xs ml-4"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- Elegant Dark Footer -->
+    <footer class="border-t border-gold/10 bg-darkblack pt-16 pb-8 mt-auto relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-12 border-b border-gold/10">
+                
+                <!-- Col 1: Brand description -->
+                <div class="md:col-span-4 space-y-6">
+                    <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
+                        <div class="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center bg-darkgray">
+                            <i class="fa-solid fa-utensils text-gold"></i>
+                        </div>
+                        <div>
+                            <span class="text-lg font-bold tracking-widest font-serif text-gold-gradient block">ROYAL SPICE</span>
+                            <span class="text-[8px] tracking-wider text-gray-500 uppercase block -mt-1">Fine Dining Artistry</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-xs leading-relaxed font-light">
+                        Engineering premium taste symphonies, sourcing pristine organic materials, and curating Michelin-worthy dinner events weekly in San Francisco.
+                    </p>
+                    <div class="flex gap-3 pt-2">
+                        <a href="#" class="w-10 h-10 rounded-full bg-darkgray border border-gold/20 flex items-center justify-center text-gold/60 hover:text-gold hover:border-gold transition-all"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-darkgray border border-gold/20 flex items-center justify-center text-gold/60 hover:text-gold hover:border-gold transition-all"><i class="fa-brands fa-instagram text-sm"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-darkgray border border-gold/20 flex items-center justify-center text-gold/60 hover:text-gold hover:border-gold transition-all"><i class="fa-brands fa-tripadvisor text-sm"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-darkgray border border-gold/20 flex items-center justify-center text-gold/60 hover:text-gold hover:border-gold transition-all"><i class="fa-brands fa-yelp text-sm"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Navigation Links -->
+                <div class="md:col-span-2 space-y-4">
+                    <h4 class="text-xs font-bold text-gold uppercase tracking-widest font-serif">Sanctuary Routes</h4>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><button onclick="navigateTo('home')" class="hover:text-gold transition-colors">Home Lounge</button></li>
+                        <li><button onclick="navigateTo('about')" class="hover:text-gold transition-colors">About Story</button></li>
+                        <li><button onclick="navigateTo('menu')" class="hover:text-gold transition-colors">Deluxe Menu</button></li>
+                        <li><button onclick="navigateTo('gallery')" class="hover:text-gold transition-colors">Dining Gallery</button></li>
+                        <li><button onclick="navigateTo('reservation')" class="hover:text-gold transition-colors">Book A Table</button></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Seating Hours -->
+                <div class="md:col-span-3 space-y-4">
+                    <h4 class="text-xs font-bold text-gold uppercase tracking-widest font-serif">Seating Hours</h4>
+                    <ul class="space-y-2 text-xs text-gray-400 font-light">
+                        <li class="flex justify-between"><span>Monday - Friday</span> <span class="text-gold">05:00 PM - 11:00 PM</span></li>
+                        <li class="flex justify-between"><span>Saturday</span> <span class="text-gold">04:00 PM - Midnight</span></li>
+                        <li class="flex justify-between"><span>Sunday Brunch</span> <span class="text-gold">11:00 AM - 04:00 PM</span></li>
+                        <li class="flex justify-between"><span>Sunday Seating</span> <span class="text-gold">06:00 PM - 10:00 PM</span></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Newsletter -->
+                <div class="md:col-span-3 space-y-4">
+                    <h4 class="text-xs font-bold text-gold uppercase tracking-widest font-serif">Taste Chronicles Newsletter</h4>
+                    <p class="text-[10px] text-gray-400 leading-relaxed font-light">Receive invitations to special wine tasting dinners, secret chef curations, and priority holiday tables.</p>
+                    <div class="space-y-2 pt-1">
+                        <input type="email" id="newsletter-email" placeholder="concierge@luxury.com" class="w-full bg-darkgray border border-gold/20 focus:border-gold rounded-md px-3 py-2 text-xs outline-none text-white transition-colors">
+                        <button onclick="subscribeNewsletter()" class="w-full py-2.5 rounded-md bg-gold text-black font-extrabold text-[10px] tracking-widest uppercase hover:opacity-90 active:scale-95 transition-all">Subscribe Now</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer base copyright -->
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-[10px] text-gray-500 gap-4">
+                <p>&copy; 2026 ROYAL SPICE RESTAURANT. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:underline">Privacy Charter</a>
+                    <span>&bull;</span>
+                    <a href="#" class="hover:underline">Dining Terms & Dress Code</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ============================================= -->
+    <!-- JAVASCRIPT ENGINE & DYNAMIC ROUTER            -->
+    <!-- ============================================= -->
+    <script>
+        // High-fidelity SPA Router Controller
+        function navigateTo(pageId) {
+            const pages = ['home', 'about', 'menu', 'gallery', 'reservation', 'contact'];
+            
+            pages.forEach(p => {
+                const element = document.getElementById(`page-${p}`);
+                if (p === pageId) {
+                    element.classList.remove('page-hidden');
+                    element.classList.add('page-active');
+                } else {
+                    element.classList.remove('page-active');
+                    element.classList.add('page-hidden');
+                }
+            });
+
+            // Update Header Navigation Active link borders
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if (btn.getAttribute('data-page') === pageId) {
+                    btn.className = "nav-btn px-4 py-2 text-xs font-semibold tracking-widest uppercase transition-all text-gold border-b-2 border-gold";
+                } else {
+                    btn.className = "nav-btn px-4 py-2 text-xs font-semibold tracking-widest uppercase transition-all text-gray-300 hover:text-gold border-b-2 border-transparent hover:border-gold/30";
+                }
+            });
+
+            // Update Mobile Drawer navigation active designs
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+                if (btn.getAttribute('data-page') === pageId) {
+                    btn.className = "mobile-nav-btn text-left py-3 px-4 rounded-lg text-sm font-semibold tracking-wider text-gold bg-gold/5 border border-gold/20";
+                } else {
+                    btn.className = "mobile-nav-btn text-left py-3 px-4 rounded-lg text-sm font-semibold tracking-wider text-gray-300";
+                }
+            });
+
+            // Instantly scroll smoothly back to head
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Hamburger Menu Toggle
+        const burgerBtn = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const burgerIcon = document.getElementById('hamburger-icon');
+
+        burgerBtn.addEventListener('click', () => {
+            toggleMenu();
+        });
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                burgerIcon.className = "fa-solid fa-bars text-lg";
+            } else {
+                burgerIcon.className = "fa-solid fa-xmark text-lg";
+            }
+        }
+
+        // Review Slider definitions
+        const reviewsData = [
+            {
+                quote: "The Gold Dust Biryani at Royal Spice is a culinary revolution. The ambiance transported us directly to classic Royal Bengal courts. Absolutely exceptional service!",
+                author: "Alexander Sterling",
+                role: "Epicurean Critic"
+            },
+            {
+                quote: "Truly fine dining in every aspect. The dry-aged steak was melted-butter tender, and the wine recommendation was spectacularly paired. Highly deserve their Michelin stars.",
+                author: "Lady Victoria Montgomery",
+                role: "Vogue Gastronomy"
+            },
+            {
+                quote: "An absolute masterclass in flavor balance. The chef's attention to saffron purity and organic ingredients was tasted in every bite. A secret SF gem.",
+                author: "Marcus Vance",
+                role: "Luxury Lifestyle Magazine"
+            }
+        ];
+
+        let activeReviewIndex = 0;
+
+        function slideReviews(direction) {
+            activeReviewIndex += direction;
+            if (activeReviewIndex < 0) {
+                activeReviewIndex = reviewsData.length - 1;
+            } else if (activeReviewIndex >= reviewsData.length) {
+                activeReviewIndex = 0;
+            }
+
+            const targetReview = reviewsData[activeReviewIndex];
+
+            // Transition text smoothly
+            const quoteEl = document.getElementById('slider-quote');
+            const authorEl = document.getElementById('slider-author');
+            const roleEl = document.getElementById('slider-role');
+
+            quoteEl.style.opacity = 0;
+            authorEl.style.opacity = 0;
+            roleEl.style.opacity = 0;
+
+            setTimeout(() => {
+                quoteEl.innerText = `"${targetReview.quote}"`;
+                authorEl.innerText = targetReview.author;
+                roleEl.innerText = targetReview.role;
+
+                quoteEl.style.opacity = 1;
+                authorEl.style.opacity = 1;
+                roleEl.style.opacity = 1;
+            }, 250);
+        }
+
+        // Auto-scroll reviews every 7 seconds
+        setInterval(() => {
+            slideReviews(1);
+        }, 7000);
+
+
+        // Dynamic Filter System for Menu Cards
+        function filterMenu(category) {
+            const cards = document.querySelectorAll('.menu-card-item');
+            
+            cards.forEach(card => {
+                const cardCat = card.getAttribute('data-category');
+                if (category === 'all' || cardCat === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Update category button styling states
+            document.querySelectorAll('.menu-filter-btn').forEach(btn => {
+                btn.className = "menu-filter-btn px-6 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-all border border-gold/20 text-gray-400 hover:text-gold";
+            });
+            document.getElementById(`m-btn-${category}`).className = "menu-filter-btn px-6 py-2.5 rounded-full text-xs font-bold tracking-widest uppercase transition-all bg-gold text-black border border-gold";
+        }
+
+
+        // High luxury toast alerts to eliminate default browser alerts
+        function triggerRoyalToast(type, headline, description) {
+            const toast = document.getElementById('royal-toast');
+            const icon = document.getElementById('toast-icon');
+            const title = document.getElementById('toast-title');
+            const desc = document.getElementById('toast-desc');
+
+            if (type === 'success') {
+                toast.className = "fixed bottom-6 right-6 z-[100] transform transition-all duration-300 gold-glass p-4 rounded-xl flex items-center gap-3 border-emerald-500/40 shadow-2xl max-w-sm";
+                icon.className = "w-10 h-10 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg";
+                icon.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            } else {
+                toast.className = "fixed bottom-6 right-6 z-[100] transform transition-all duration-300 gold-glass p-4 rounded-xl flex items-center gap-3 border-gold/40 shadow-2xl max-w-sm";
+                icon.className = "w-10 h-10 rounded-full bg-gold/10 text-gold flex items-center justify-center text-lg";
+                icon.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>';
+            }
+
+            title.innerText = headline;
+            desc.innerText = description;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+
+            setTimeout(() => {
+                hideToast();
+            }, 6000);
+        }
+
+        function hideToast() {
+            const toast = document.getElementById('royal-toast');
+            toast.classList.add('translate-y-20', 'opacity-0');
+        }
+
+
+        // Submitting Table Bookings
+        function submitReservation(event) {
+            event.preventDefault();
+            const name = document.getElementById('r-name').value;
+            const phone = document.getElementById('r-phone').value;
+            const date = document.getElementById('r-date').value;
+            const time = document.getElementById('r-time').value;
+            const guests = document.getElementById('r-guests').value;
+
+            if (name && phone && date && time) {
+                triggerRoyalToast('success', 'Reservation Registered!', `Splendid, ${name}! Your table for ${guests} guest(s) on ${date} at ${time} is provisionally secured. We will text coordinates shortly.`);
+                document.getElementById('reservation-form').reset();
+            }
+        }
+
+        // Submitting general inquiries
+        function submitContactQuery(event) {
+            event.preventDefault();
+            const name = document.getElementById('qc-name').value;
+            const email = document.getElementById('qc-email').value;
+            const subject = document.getElementById('qc-subject').value;
+
+            if (name && email && subject) {
+                triggerRoyalToast('success', 'Inquiry Deployed!', `Thank you, ${name}. Our Guest Relations team has received your query regarding "${subject.toUpperCase()}" and will reply in 2 hours.`);
+                document.getElementById('contact-query-form').reset();
+            }
+        }
+
+        // Newsletter Signup
+        function subscribeNewsletter() {
+            const email = document.getElementById('newsletter-email');
+            if (email.value) {
+                triggerRoyalToast('success', 'Charter List Joined!', 'You are officially subscribed to our high-end dinner calendar news.');
+                email.value = '';
+            } else {
+                triggerRoyalToast('error', 'Concierge Alert', 'Please provide a valid dining email address first.');
+            }
+        }
+    </script>
+</body>
+</html>
